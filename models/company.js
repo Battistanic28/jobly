@@ -67,21 +67,8 @@ class Company {
    * Returns [{ handle, name, description, numEmployees, logoUrl }, ...]
    * */
 
-  static async filterBy(name) {
-    const wildcard = `'%${name}%'`
-    const companySize = await db.query(
-          `SELECT handle,
-                  name,
-                  description,
-                  num_employees AS "numEmployees",
-                  logo_url AS "logoUrl"
-           FROM companies
-           WHERE handle LIKE ${wildcard}
-           ORDER BY name`);
-    return companySize.rows;
-  }
-
-  // static async filterBy(min=0, max=999999999, name) {
+  // static async filterBy(name) {
+  //   const wildcard = `'%${name}%'`;
   //   const companySize = await db.query(
   //         `SELECT handle,
   //                 name,
@@ -89,13 +76,28 @@ class Company {
   //                 num_employees AS "numEmployees",
   //                 logo_url AS "logoUrl"
   //          FROM companies
-  //          WHERE num_employees >= $1 
-  //          AND num_employees <= $2
-  //          OR name LIKE $3
-  //          ORDER BY name`,
-  //          [min, max, name]);
+  //          WHERE handle LIKE ${wildcard}
+  //          ORDER BY name`);
   //   return companySize.rows;
   // }
+
+  static async filterBy(min=0, max=999999999, name='') {
+    const wildcard = `%${name}%`;
+    const companySize = await db.query(
+          `SELECT handle,
+                  name,
+                  description,
+                  num_employees AS "numEmployees",
+                  logo_url AS "logoUrl"
+           FROM companies
+           WHERE num_employees 
+           BETWEEN $1 AND $2
+           AND handle LIKE $3
+           ORDER BY name`,
+           [min, max, wildcard]);
+           console.log(companySize)
+    return companySize.rows;
+  }
 
   /** Given a company handle, return data about company.
    *
