@@ -53,14 +53,12 @@ router.post("/", ensureLoggedIn, async function (req, res, next) {
 router.get("/", async function (req, res, next) {
   let companies;
   try {
-    if(req.query) {
+    if(Object.keys(req.query).length !== 0) {
       console.log(req.query)
-      let min = req.query.min;
-      let max = req.query.max;
       let name = req.query.name;
-      companies = await Company.filterBy(min, max, name);
+      companies = await Company.filterBy(name);
     } else {
-      companies = await findAll();
+      companies = await Company.findAll();
     }
     return res.json({ companies });
   } catch (err) {
@@ -71,14 +69,14 @@ router.get("/", async function (req, res, next) {
 // router.get("/", async function (req, res, next) {
 //   let companies;
 //   try {
-//     if(req.query) {
+//     if(Object.keys(req.query).length !== 0)  {
 //       console.log(req.query)
 //       let min = req.query.min;
 //       let max = req.query.max;
 //       let name = req.query.name;
 //       companies = await Company.filterBy(min,max,name);
 //     } else {
-//       companies = await findAll();
+//       companies = await Company.findAll();
 //     }
 //     return res.json({ companies });
 //   } catch (err) {
