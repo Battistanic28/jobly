@@ -175,6 +175,22 @@ describe("GET /companies", function () {
           ],
     });
   });
+
+  test("filter companies by min and max employees value plus search criteria", async function () {
+    const resp = await request(app).get("/companies?min=1&max=3&name=c2");
+    expect(resp.body).toEqual({
+      companies:
+          [
+            {
+              handle: "c2",
+              name: "C2",
+              description: "Desc2",
+              numEmployees: 2,
+              logoUrl: "http://c2.img",
+            }
+          ],
+    });
+  });
 });
 
 /************************************** GET /companies/:handle */
