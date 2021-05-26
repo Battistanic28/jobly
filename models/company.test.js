@@ -87,6 +87,23 @@ describe("findAll", function () {
   });
 });
 
+/************************************** filterBy */
+
+describe("filterBy", function () {
+  test("works: filters companies with numEmployees < 3 containing '1'", async function () {
+    let companies = await Company.filterBy(0,3,'1');
+    expect(companies).toEqual([
+      {
+        handle: "c1",
+        name: "C1",
+        description: "Desc1",
+        numEmployees: 1,
+        logoUrl: "http://c1.img",
+      }
+    ]);
+  });
+});
+
 /************************************** get */
 
 describe("get", function () {
