@@ -61,8 +61,8 @@ class Company {
     return companiesRes.rows;
   }
 
-  /** Find all companies within a number range of emplyees.
-   * Expects query format such as '/companies?min=1&max=3'.
+  /** Filter companies by min numEmployees, max numEmployees and name (search criteria)
+   * Expects any or all of the input parameters as a query string... e.g. '/companies?min=1&max=3&name=c2'
    *
    * Returns [{ handle, name, description, numEmployees, logoUrl }, ...]
    * */
