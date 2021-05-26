@@ -74,6 +74,7 @@ router.get("/", async function (req, res, next) {
       let min = req.query.min;
       let max = req.query.max;
       let name = req.query.name;
+      if (min > max) throw new ExpressError('Min value cannot exceed max value.', 404);
       companies = await Company.filterBy(min,max,name);
     } else {
       companies = await Company.findAll();
