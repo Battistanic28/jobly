@@ -54,11 +54,11 @@ router.get("/", async function (req, res, next) {
   let companies;
   try {
     if(Object.keys(req.query).length !== 0)  {
-      let min = req.query.min;
-      let max = req.query.max;
-      let name = req.query.name;
-      if (min > max) throw new ExpressError('Min value cannot exceed max value.', 404);
-      companies = await Company.filterBy(min,max,name);
+      let minEmployees = req.query.min;
+      let maxEmployees = req.query.max;
+      let nameLike = req.query.name;
+      if (minEmployees > maxEmployees) throw new ExpressError('Min value cannot exceed max value.', 404);
+      companies = await Company.filterBy(minEmployees,maxEmployees,nameLike);
     } else {
       companies = await Company.findAll();
     }
