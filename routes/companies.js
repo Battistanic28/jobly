@@ -50,22 +50,6 @@ router.post("/", ensureLoggedIn, async function (req, res, next) {
  * Authorization required: none
  */
 
-// router.get("/", async function (req, res, next) {
-//   let companies;
-//   try {
-//     if(Object.keys(req.query).length !== 0) {
-//       console.log(req.query)
-//       let name = req.query.name;
-//       companies = await Company.filterBy(min, max, name);
-//     } else {
-//       companies = await Company.findAll();
-//     }
-//     return res.json({ companies });
-//   } catch (err) {
-//     return next(err);
-//   }
-// });
-
 router.get("/", async function (req, res, next) {
   let companies;
   try {

@@ -67,20 +67,6 @@ class Company {
    * Returns [{ handle, name, description, numEmployees, logoUrl }, ...]
    * */
 
-  // static async filterBy(name) {
-  //   const wildcard = `'%${name}%'`;
-  //   const companySize = await db.query(
-  //         `SELECT handle,
-  //                 name,
-  //                 description,
-  //                 num_employees AS "numEmployees",
-  //                 logo_url AS "logoUrl"
-  //          FROM companies
-  //          WHERE handle LIKE ${wildcard}
-  //          ORDER BY name`);
-  //   return companySize.rows;
-  // }
-
   static async filterBy(min=0, max=999999999, name='') {
     const wildcard = `%${name}%`;
     const companySize = await db.query(
