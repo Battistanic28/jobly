@@ -81,7 +81,6 @@ class Company {
            AND handle LIKE $3
            ORDER BY name`,
            [min, max, wildcard]);
-           console.log(companySize)
     return companySize.rows;
   }
 

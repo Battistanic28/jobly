@@ -54,7 +54,6 @@ router.get("/", async function (req, res, next) {
   let companies;
   try {
     if(Object.keys(req.query).length !== 0)  {
-      console.log(req.query)
       let min = req.query.min;
       let max = req.query.max;
       let name = req.query.name;
