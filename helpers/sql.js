@@ -1,6 +1,10 @@
 const { BadRequestError } = require("../expressError");
 
 // THIS NEEDS SOME GREAT DOCUMENTATION.
+  /** Function accepts an objct containing information about a User or Company.
+   * 
+   * Returns data from the object remformatted for use in a SQL query.
+   **/
 
 function sqlForPartialUpdate(dataToUpdate, jsToSql) {
   const keys = Object.keys(dataToUpdate);
