@@ -42,8 +42,23 @@ function ensureLoggedIn(req, res, next) {
   }
 }
 
+/** Middleware to verify that a user is the original poster OR site admin.
+ *
+ * If not, raises Unauthorized.
+ */
+
+function ensureAdmin(req, res, next) {
+  try {
+    if (!res.locals.user.isAdmin) throw new UnauthorizedError();
+    console.log('User', res.locals.user)
+    return next();
+  } catch (err) {
+    return next(err);
+  }
+}
 
 module.exports = {
   authenticateJWT,
   ensureLoggedIn,
+  ensureAdmin
 };
