@@ -1,0 +1,30 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "required": [
+        "title",
+        "salary",
+        "equity",
+        "company_handle"
+    ],
+    "properties": {
+        "title": {
+            "$id": "#/properties/title",
+            "type": "string"
+        },
+        "salary": {
+            "$id": "#/properties/salary",
+            "type": "integer"
+        },
+        "equity": {
+            "$id": "#/properties/equity",
+            "type": "null"
+        },
+        "company_handle": {
+            "$id": "#/properties/company_handle",
+            "type": "string"
+        }
+    },
+    "additionalProperties": true
+}

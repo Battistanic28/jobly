@@ -50,6 +50,18 @@ function ensureLoggedIn(req, res, next) {
 function ensureAdmin(req, res, next) {
   try {
     if (!res.locals.user.isAdmin) throw new UnauthorizedError();
+    console.log(req.headers.authorization)
+    console.log('User', res.locals.user)
+    return next();
+  } catch (err) {
+    return next(err);
+  }
+}
+
+function ensureOwnerOrAdmin(req, res, next) {
+  try {
+    if (!res.locals.user.isAdmin || req.body.username !== res.locals.user.username) throw new UnauthorizedError();
+    console.log("req", req)
     console.log('User', res.locals.user)
     return next();
   } catch (err) {
