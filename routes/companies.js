@@ -57,7 +57,7 @@ router.get("/", async function (req, res, next) {
       let minEmployees = req.query.min;
       let maxEmployees = req.query.max;
       let nameLike = req.query.name;
-      if (minEmployees > Employees) throw new ExpressError('Min value cannot exceed max value.', 404);
+      if (minEmployees > maxEmployees) throw new ExpressError('Min value cannot exceed max value.', 404);
       companies = await Company.filterBy(minEmployees,maxEmployees,nameLike);
     } else {
       companies = await Company.findAll();
@@ -113,7 +113,7 @@ router.patch("/:handle", ensureAdmin, async function (req, res, next) {
 
 /** DELETE /[handle]  =>  { deleted: handle }
  *
- * Authorization: login
+ * Authorization: Admin
  */
 
 router.delete("/:handle", ensureAdmin, async function (req, res, next) {

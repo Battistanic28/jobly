@@ -11,6 +11,7 @@ const {
   commonAfterEach,
   commonAfterAll,
   u1Token,
+  u3Token
 } = require("./_testCommon");
 
 beforeAll(commonBeforeAll);
@@ -254,7 +255,8 @@ describe("PATCH /companies/:handle", function () {
         .patch(`/companies/c1`)
         .send({
           name: "C1-new",
-        });
+        })
+        .set("authorization", `Bearer ${u3Token}`);
     expect(resp.statusCode).toEqual(401);
   });
 
@@ -301,7 +303,8 @@ describe("DELETE /companies/:handle", function () {
 
   test("unauth for anon", async function () {
     const resp = await request(app)
-        .delete(`/companies/c1`);
+        .delete(`/companies/c1`)
+        .set("authorization", `Bearer ${u3Token}`);
     expect(resp.statusCode).toEqual(401);
   });
 

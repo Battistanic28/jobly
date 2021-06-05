@@ -12,6 +12,7 @@ const {
   commonAfterEach,
   commonAfterAll,
   u1Token,
+  u3Token
 } = require("./_testCommon");
 
 beforeAll(commonBeforeAll);
@@ -80,7 +81,8 @@ describe("POST /users", function () {
           password: "password-new",
           email: "new@email.com",
           isAdmin: true,
-        });
+        })
+        .set("authorization", `Bearer ${u3Token}`);
     expect(resp.statusCode).toEqual(401);
   });
 
@@ -124,7 +126,7 @@ describe("GET /users", function () {
           firstName: "U1F",
           lastName: "U1L",
           email: "user1@user.com",
-          isAdmin: false,
+          isAdmin: true,
         },
         {
           username: "u2",
@@ -146,7 +148,8 @@ describe("GET /users", function () {
 
   test("unauth for anon", async function () {
     const resp = await request(app)
-        .get("/users");
+        .get("/users")
+        .set("authorization", `Bearer ${u3Token}`);
     expect(resp.statusCode).toEqual(401);
   });
 
@@ -175,14 +178,15 @@ describe("GET /users/:username", function () {
         firstName: "U1F",
         lastName: "U1L",
         email: "user1@user.com",
-        isAdmin: false,
+        isAdmin: true,
       },
     });
   });
 
   test("unauth for anon", async function () {
     const resp = await request(app)
-        .get(`/users/u1`);
+        .get(`/users/u1`)
+        .set("authorization", `Bearer ${u3Token}`);
     expect(resp.statusCode).toEqual(401);
   });
 
@@ -210,7 +214,7 @@ describe("PATCH /users/:username", () => {
         firstName: "New",
         lastName: "U1L",
         email: "user1@user.com",
-        isAdmin: false,
+        isAdmin: true,
       },
     });
   });
@@ -220,7 +224,8 @@ describe("PATCH /users/:username", () => {
         .patch(`/users/u1`)
         .send({
           firstName: "New",
-        });
+        })
+        .set("authorization", `Bearer ${u3Token}`);
     expect(resp.statusCode).toEqual(401);
   });
 
@@ -257,7 +262,7 @@ describe("PATCH /users/:username", () => {
         firstName: "U1F",
         lastName: "U1L",
         email: "user1@user.com",
-        isAdmin: false,
+        isAdmin: true,
       },
     });
     const isSuccessful = await User.authenticate("u1", "new-password");
@@ -277,7 +282,8 @@ describe("DELETE /users/:username", function () {
 
   test("unauth for anon", async function () {
     const resp = await request(app)
-        .delete(`/users/u1`);
+        .delete(`/users/u1`)
+        .set("authorization", `Bearer ${u3Token}`);
     expect(resp.statusCode).toEqual(401);
   });
 
