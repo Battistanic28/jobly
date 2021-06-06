@@ -89,6 +89,30 @@ class Job {
 		if (!job) throw new NotFoundError(`No job with ID: ${id}`);
 		return job;
 	}
+
+	/** Given a company handle id, return all open positions for compny.
+   *
+   * Returns {title, salary, equity, company_handle}
+   *
+   * Throws NotFoundError if not found.
+   **/
+
+	static async getJobsByEmployer(companyHandle) {
+		const jobRes = await db.query(
+			`SELECT title,
+                      salary,
+                      equity,
+                      company_handle AS companyHandle
+            FROM jobs
+            WHERE company_handle = $1
+            ORDER BY title`,
+			[ companyHandle ]
+		);
+
+        const jobs = jobRes.rows;
+		if (!jobs) throw new NotFoundError(`No open positions fo company: ${companyHandle}`);
+		return jobs;
+	}
     
   /** Update job data with `data`.
    *
