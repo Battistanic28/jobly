@@ -19,7 +19,7 @@
         },
         "equity": {
             "$id": "#/properties/equity",
-            "type": "null"
+            "type": "string"
         },
         "company_handle": {
             "$id": "#/properties/company_handle",
