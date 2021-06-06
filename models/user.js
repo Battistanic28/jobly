@@ -204,7 +204,35 @@ class User {
 
     if (!user) throw new NotFoundError(`No user: ${username}`);
   }
-}
+
+  /** Create application for given user/ job_id pair
+   * 
+   * Add record to database
+   *
+   * Data can include:
+   *   { userName, job_id }
+   *
+   * Returns { username, firstName, lastName, email, isAdmin }
+   *
+   * Throws NotFoundError if not found.
+   */
+
+  static async apply(username, jobId) {
+    let userRes = await db.query(
+      `INSERT INTO
+      applications
+      (username, job_id)
+      VALUES
+      ($1, $2)`,
+      [username, jobId]
+    );
+    const application = userRes.rows;
+    console.log(application);
+    if (!application) throw new NotFoundError(`Valid username and comapny id required`);
+    return application;
+  }
+};
+
 
 
 module.exports = User;

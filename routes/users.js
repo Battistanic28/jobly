@@ -43,6 +43,25 @@ router.post("/", ensureAdmin, async function (req, res, next) {
   }
 });
 
+/** POST / { user }  => { username, job_id }
+ *
+ * Adds new user application
+ *
+ * Returns { username, job_id }
+ *
+ * Authorization required: Admin or data owner
+ **/
+
+router.post("/:username/jobs/:id", ensureOwnerOrAdmin, async function (req, res, next) {
+  try {
+    const user = req.params.username;
+    const jobId = req.params.id;
+    let application = await User.apply(user, jobId)
+    return res.status(201).json({ application: `Success` });
+  } catch (err) {
+    return next(err);
+  }
+});
 
 /** GET / => { users: [ {username, firstName, lastName, email }, ... ] }
  *
