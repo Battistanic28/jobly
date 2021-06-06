@@ -89,7 +89,18 @@ class Job {
 		if (!job) throw new NotFoundError(`No job with ID: ${id}`);
 		return job;
 	}
-
+    
+  /** Update job data with `data`.
+   *
+   * Update requires all fields as part of request body.
+   *
+   * Data can include: {title, salary, equity, company_handle}
+   *
+   * Returns {title, salary, equity, company_handle}
+   *
+   * Throws NotFoundError if not found.
+   */
+    
 	static async update(id, data) {
         const {title, salary, equity, company_handle} = data;
 		const jobRes = await db.query(
