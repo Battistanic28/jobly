@@ -31,9 +31,28 @@ router.post("/", async function (req, res, next) {
 });
 
 router.get("/", async function(req, res, next) {
-    const jobs = await Job.findAll();
-    return res.json({ jobs })
+    let jobs;
+    try {
+        if(Object.keys(req.query).length !== 0) {
+            let minSalary = req.query.minSalary;
+            let equity = req.query.equity;
+            let dynamicOperator = '>='
+            if (equity === 'true') {
+                dynamicOperator = '>';
+            } else if (equity === 'false') {
+                dynamicOperator = '=';
+            }
+            console.log('dynamicOperator', dynamicOperator)
+            jobs = await Job.filterBy(minSalary, dynamicOperator); 
+        } else {
+            jobs = await Job.findAll();
+        }
+        return res.json({ jobs });
+    } catch (err) {
+        return next(err);
+    }
 })
+
 
 
 module.exports = router;
