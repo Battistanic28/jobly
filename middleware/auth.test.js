@@ -6,7 +6,7 @@ const {
   authenticateJWT,
   ensureLoggedIn,
   ensureAdmin,
-  ensureAdminOrOwner
+  ensureOwnerOrAdmin
 } = require("./auth");
 
 
@@ -86,10 +86,22 @@ describe("ensureAdmin", function () {
   test("works", function () {
     expect.assertions(1);
     const req = {};
-    const res = { locals: { user: { username: "testAdmin", is_admin: true } } };
+    const res = { locals: { user: { username: "testAdmin", isAdmin: true } } };
     const next = function (err) {
       expect(err).toBeFalsy();
     };
     ensureAdmin(req, res, next);
+  });
+});
+
+describe("ensureOwnerOrAdmin", function () {
+  test("works", function () {
+    expect.assertions(1);
+    const req = {};
+    const res = { locals: { user: { username: "testAdmin", isAdmin: true } } };
+    const next = function (err) {
+      expect(err).toBeFalsy();
+    };
+    ensureOwnerOrAdmin(req, res, next);
   });
 });
