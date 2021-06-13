@@ -192,6 +192,11 @@ describe("GET /companies", function () {
           ],
     });
   });
+
+  test("throws error if min exceeds max query value", async function () {
+    const resp = await request(app).get("/companies?min=3&max=1");
+    expect(resp.status).toEqual(404);
+  });
 });
 
 /************************************** GET /companies/:handle */
