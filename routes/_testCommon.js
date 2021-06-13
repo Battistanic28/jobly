@@ -75,7 +75,7 @@ await Job.create(
   {
     title: "c3_job",
     salary: "90000",
-    equity: "0",
+    equity: "0.05",
     company_handle: "c3",
   });
 }

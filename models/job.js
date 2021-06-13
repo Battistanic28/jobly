@@ -31,7 +31,8 @@ class Job {
 
 	static async findAll() {
 		const jobsRes = await db.query(
-			`SELECT title,
+			`SELECT id,
+                    title,
                     salary,
                     equity,
                     company_handle AS companyHandle
@@ -50,7 +51,8 @@ class Job {
 
 	static async filterBy(minSalary = 0, dynamicOperator) {
 		const jobsRes = await db.query(
-			`SELECT title,
+			`SELECT id,
+                    title,
                     salary,
                     equity,
                     company_handle AS companyHandle
@@ -73,10 +75,11 @@ class Job {
 
 	static async get(id) {
 		const jobRes = await db.query(
-			`SELECT title,
-                      salary,
-                      equity,
-                      company_handle AS companyHandle
+			`SELECT id,
+                    title,
+                    salary,
+                    equity,
+                    company_handle AS companyHandle
             FROM jobs
             WHERE id = $1
             ORDER BY title`,
